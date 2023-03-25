@@ -47,3 +47,18 @@ def test_if_the_exit_command_is_entered_then_the_program_must_be_terminate():
     with pytest.raises(SystemExit) as e:
         app.main()
     assert e.value.code == 0
+
+
+@pytest.fixture()
+def add_multiple_raw_materials():
+    q = 0
+    for c in (10, 1, 2):
+        with patch('app.get_command', MagicMock(return_value=f"add moraba {c}")):
+            app.runner()
+            q += c
+    return q
+
+
+def test_if_a_raw_material_is_added_twice_or_more_then_the_inventory_must_be_updated(add_multiple_raw_materials):
+    quantity = add_multiple_raw_materials
+    assert quantity == stockroom.RAW_MATERIALS["moraba"]
