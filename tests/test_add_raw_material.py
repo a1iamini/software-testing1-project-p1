@@ -1,5 +1,4 @@
 import pytest
-
 import app
 from confectionary import stockroom
 from unittest.mock import patch, MagicMock
@@ -41,3 +40,10 @@ def test_if_the_wrong_add_command_is_entered_then_the_invalid_command_message_mu
         app.runner()
         out, err = capsys.readouterr()
         assert out == label + "invalid command\n"
+
+
+@patch('app.get_command', MagicMock(return_value="exit"))
+def test_if_the_exit_command_is_entered_then_the_program_must_be_terminate():
+    with pytest.raises(SystemExit) as e:
+        app.main()
+    assert e.value.code == 0
