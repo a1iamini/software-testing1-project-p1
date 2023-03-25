@@ -6,6 +6,7 @@ def runner():
     command = get_command()
     if command.startswith("add "):
         add(command)
+        print("cms: Done")
 
 
 def main():
