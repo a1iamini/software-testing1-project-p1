@@ -4,9 +4,10 @@ from commands import add
 
 def runner():
     command = get_command()
-    if command.startswith("add "):
-        add(command)
+    if command.startswith("add ") and add(command):
         print_message("Done")
+    else:
+        print_message("invalid command")
 
 
 def main():
