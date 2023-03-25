@@ -1,9 +1,18 @@
 from inout import get_command
-from confectionary import stockroom
+from commands import add
 
 
 def runner():
     command = get_command()
     if command.startswith("add "):
-        action, material, quantity = command.split()
-        stockroom.RAW_MATERIALS[material] = int(quantity)
+        add(command)
+
+
+def main():
+    keep_gonna = True
+    while keep_gonna:
+        runner()
+
+
+if __name__ == "__main__":
+    main()

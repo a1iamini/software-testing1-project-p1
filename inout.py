@@ -1,3 +1,6 @@
+label = "cms: "
+
+
 def get_command():
-    command = input("cms > ")
+    command = input(label)
     return command
