@@ -1,4 +1,4 @@
-from inout import get_command
+from inout import get_command, print_message
 from commands import add
 
 
@@ -6,7 +6,7 @@ def runner():
     command = get_command()
     if command.startswith("add "):
         add(command)
-        print("cms: Done")
+        print_message("Done")
 
 
 def main():
