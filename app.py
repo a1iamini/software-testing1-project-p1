@@ -8,6 +8,7 @@ def runner():
         print_message("Done")
     elif command.startswith("define sweets "):
         define(command)
+        print_message("Done")
     elif command == "exit":
         return False
     else:
