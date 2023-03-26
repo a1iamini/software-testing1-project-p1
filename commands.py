@@ -1,5 +1,5 @@
 from confectionary.stockroom import add_material
-from inout import print_message
+from confectionary.store import define_sweets
 
 
 def add(command):
@@ -8,3 +8,9 @@ def add(command):
     except ValueError:
         return False
     return add_material(material, quantity)
+
+
+def define(command):
+    command, materials = command.split(': ')
+    *action, sweets_name, price = command.split()
+    define_sweets(sweets_name, price)

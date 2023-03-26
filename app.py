@@ -1,6 +1,5 @@
 from inout import get_command, print_message
-from commands import add
-from confectionary.store import add_sweets
+from commands import add, define
 
 
 def runner():
@@ -8,7 +7,7 @@ def runner():
     if command.startswith("add ") and add(command):
         print_message("Done")
     elif command.startswith("define sweets "):
-        add_sweets(command)
+        define(command)
     elif command == "exit":
         return False
     else:
