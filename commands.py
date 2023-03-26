@@ -1,5 +1,6 @@
 from confectionary.stockroom import add_material
 from confectionary.store import define_sweets
+from confectionary.workshop import define_sweets_spec
 
 
 def add(command):
@@ -14,3 +15,4 @@ def define(command):
     command, materials = command.split(': ')
     *action, sweets_name, price = command.split()
     define_sweets(sweets_name, price)
+    define_sweets_spec(sweets_name, materials)
