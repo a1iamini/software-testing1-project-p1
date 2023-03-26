@@ -48,3 +48,39 @@ def test_if_sweets_is_defined_for_second_or_more_times_then_the_last_definition_
            and "shekar" not in workshop.SWEETS_SPEC['khamei'] \
            and "khamei" in store.SWEETS \
            and store.SWEETS["khamei"] == 70000
+
+
+@pytest.mark.parametrize('command',
+                         [
+                          "define",
+                          "definesweets",
+                          "define sweetskhamei 3849: shekar 3, roghan 4",
+                          "define sweets 5 3849: shekar 3, roghan 4",
+                          "define sweets  3849: shekar 3, roghan 4",
+                          "define sweets khamei : shekar 3, roghan 4",
+                          "define sweets khamei: shekar 3, roghan 4",
+                          "define sweets khamei 646:shekar 3, roghan 4",
+                          "define sweets khamei 984: 87 3, roghan 4",
+                          "define sweets khamei 894: 3, roghan 4",
+                          "define sweets khamei 165: shekar nn, roghan 4",
+                          "define sweets khamei 848: shekar, roghan 4",
+                          "define sweets khamei 848: shekar  , roghan 4",
+                          "define sweets khamei 848: shekar 3,roghan 4",
+                          "define sweets khamei 848: shekar 3, 684 4",
+                          "define sweets khamei 848: shekar 3, 4",
+                          "define sweets khamei 848: shekar 3,  4",
+                          "define sweets khamei 848: shekar 3, roghan jj",
+                          "define sweets khamei 848: shekar 3, roghan",
+                          "define sweets khamei 848: shekar 3, roghan -1",
+                          "define sweets khamei 848: shekar 3, roghan 1.2",
+                          "define sweets khamei 1.5: shekar 3, roghan 1",
+                          "define sweets khamei -1: shekar 3, roghan 1",
+                          "                                                 "
+                         ])
+def test_if_the_wrong_define_command_is_entered_then_the_invalid_command_message_must_be_printed_on_the_output(capsys,
+                                                                                                               command):
+    label = "cms: "
+    with patch('app.get_command', MagicMock(return_value=command)):
+        app.runner()
+        out, err = capsys.readouterr()
+        assert out == label + "invalid command\n"
