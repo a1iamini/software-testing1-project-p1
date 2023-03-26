@@ -1,10 +1,12 @@
 from inout import get_command, print_message
-from commands import add
+from commands import add, define
 
 
 def runner():
     command = get_command()
     if command.startswith("add ") and add(command):
+        print_message("Done")
+    elif command.startswith("define sweets ") and define(command):
         print_message("Done")
     elif command == "exit":
         return False
