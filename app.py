@@ -6,8 +6,7 @@ def runner():
     command = get_command()
     if command.startswith("add ") and add(command):
         print_message("Done")
-    elif command.startswith("define sweets "):
-        define(command)
+    elif command.startswith("define sweets ") and define(command):
         print_message("Done")
     elif command == "exit":
         return False

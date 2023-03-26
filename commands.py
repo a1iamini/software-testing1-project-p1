@@ -12,7 +12,14 @@ def add(command):
 
 
 def define(command):
-    command, materials = command.split(': ')
-    *action, sweets_name, price = command.split()
-    define_sweets(sweets_name, price)
-    define_sweets_spec(sweets_name, materials)
+    try:
+        command, materials = command.split(': ')
+        *action, sweets_name, price = command.split()
+        if action != ["define", "sweets"]:
+            return False
+        req1 = define_sweets(sweets_name, price)
+        req2 = define_sweets_spec(sweets_name, materials)
+    except ValueError:
+        return False
+    return req1 and req2
+
