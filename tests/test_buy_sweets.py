@@ -61,3 +61,29 @@ def test_if_the_raw_materials_are_low_or_less_then_1_sweets_then_an_appropriate_
     app.runner()
     out, err = capsys.readouterr()
     assert out[-27:] == label + "Insufficient material\n"
+
+
+@pytest.mark.parametrize('command',
+                         [
+                             "customer",
+                             "customerbuy",
+                             "customer buynabatasali 1",
+                             "customer buy 8 1",
+                             "customer buy -1 1",
+                             "customer buy  1",
+                             "customer buy nabatasali1",
+                             "customer buy nabatasali -1",
+                             "customer buy nabatasali 1.5",
+                             "customer buy nabatasali nbv",
+                             "customer buy nabatasali  ",
+                             "                            "
+                         ])
+def test_if_the_wrong_buy_command_is_entered_then_the_invalid_command_message_must_be_printed_on_the_output(capsys,
+                                                                                                            add,
+                                                                                                            define,
+                                                                                                            command):
+    label = "cms: "
+    with patch('app.get_command', MagicMock(return_value=command)):
+        app.runner()
+        out, err = capsys.readouterr()
+        assert out[-21:] == label + "invalid command\n"
