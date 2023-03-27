@@ -10,6 +10,7 @@ def runner():
         print_message("Done")
     elif command.startswith("customer buy "):
         buy(command)
+        print_message("Done")
     elif command == "exit":
         return False
     else:
