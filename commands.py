@@ -1,6 +1,7 @@
 from confectionary.stockroom import add_material, check_raw_materials, allocate_raw_materials
 from confectionary.store import define_sweets, update_cash_desk
 from confectionary.workshop import define_sweets_spec
+from bank.bank_server import send_report_to_bank
 
 
 def add(command):
@@ -30,7 +31,8 @@ def buy(command):
         raise ValueError
     quantity = int(quantity)
     if check_raw_materials(sweets_name, quantity):
-        update_cash_desk(sweets_name, quantity)
+        report = update_cash_desk(sweets_name, quantity)
         allocate_raw_materials(sweets_name, quantity)
+        send_report_to_bank(report)
         return True
     return False

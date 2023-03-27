@@ -35,14 +35,16 @@ def define(request):
 
 @patch('app.get_command', MagicMock(return_value='customer buy nabatasali 3'))
 def test_if_the_purchase_of_sweets_is_successful_then_the_purchase_amount_must_be_added_to_cash_desk(define, add):
-    app.runner()
-    assert store.CASH_DESK == 30000
+    with patch('commands.send_report_to_bank', MagicMock()):
+        app.runner()
+        assert store.CASH_DESK == 30000
 
 
 @patch('app.get_command', MagicMock(return_value='customer buy nabatasali 1'))
 def test_if_raw_materials_have_been_used_to_bake_sweets_then_the_inventory_should_be_reduced(define, add):
-    app.runner()
-    assert stockroom.RAW_MATERIALS['nabat'] == 50 and stockroom.RAW_MATERIALS['asal'] == 20
+    with patch('commands.send_report_to_bank', MagicMock()):
+        app.runner()
+        assert stockroom.RAW_MATERIALS['nabat'] == 50 and stockroom.RAW_MATERIALS['asal'] == 20
 
 
 @patch('app.get_command', MagicMock(return_value='customer buy nabatasali 1'))

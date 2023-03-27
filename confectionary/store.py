@@ -22,4 +22,6 @@ def check_values(sweets_name, price):
 
 def update_cash_desk(sweets_name, quantity):
     global CASH_DESK
-    CASH_DESK += SWEETS[sweets_name] * int(quantity)
+    price = SWEETS[sweets_name] * int(quantity)
+    CASH_DESK += price
+    return f"sweets name: {sweets_name}, price: {price} "
