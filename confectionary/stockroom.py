@@ -1,5 +1,6 @@
 import re
 from confectionary.workshop import required_raw_materials
+
 RAW_MATERIALS = dict()
 
 
@@ -37,3 +38,9 @@ def check_raw_materials(sweets_name, quantity):
             is_exist = False
             break
     return is_exist
+
+
+def allocate_raw_materials(sweets_name, quantity):
+    requirements = required_raw_materials(sweets_name, int(quantity))
+    for k, v in requirements.items():
+        RAW_MATERIALS[k] -= v
