@@ -26,6 +26,8 @@ def define(command):
 
 def buy(command):
     *action, sweets_name, quantity = command.split()
+    if action != ["customer", "buy"]:
+        raise ValueError
     quantity = int(quantity)
     if check_raw_materials(sweets_name, quantity):
         update_cash_desk(sweets_name, quantity)

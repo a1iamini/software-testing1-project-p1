@@ -30,6 +30,9 @@ def check_values(material, quantity):
 
 def required_raw_materials(sweets_name, quantity):
     requirements = dict()
-    for k, v in SWEETS_SPEC[sweets_name].items():
-        requirements[k] = v * quantity
+    if sweets_name in SWEETS_SPEC and quantity > 0:
+        for k, v in SWEETS_SPEC[sweets_name].items():
+            requirements[k] = v * quantity
+    else:
+        raise ValueError
     return requirements

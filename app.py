@@ -9,10 +9,13 @@ def runner():
     elif command.startswith("define sweets ") and define(command):
         print_message("Done")
     elif command.startswith("customer buy "):
-        if buy(command):
-            print_message("Done")
-        else:
-            print_message("Insufficient material")
+        try:
+            if buy(command):
+                print_message("Done")
+            else:
+                print_message("Insufficient material")
+        except ValueError:
+            print_message("invalid command")
     elif command == "exit":
         return False
     else:
