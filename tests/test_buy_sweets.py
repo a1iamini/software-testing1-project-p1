@@ -42,3 +42,12 @@ def test_if_the_purchase_of_sweets_is_successful_then_the_purchase_amount_must_b
 def test_if_raw_materials_have_been_used_to_bake_sweets_then_the_inventory_should_be_reduced(define, add):
     app.runner()
     assert stockroom.RAW_MATERIALS['nabat'] == 50 and stockroom.RAW_MATERIALS['asal'] == 20
+
+
+@patch('app.get_command', MagicMock(return_value='customer buy nabatasali 1'))
+def test_if_the_buy_sweets_was_successful_then_a_done_message_must_be_printed_on_the_output(capsys):
+    with patch('app.buy'):
+        label = "cms: "
+        app.runner()
+        out, err = capsys.readouterr()
+        assert out == label + "Done\n"
