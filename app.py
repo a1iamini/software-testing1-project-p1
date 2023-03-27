@@ -9,8 +9,10 @@ def runner():
     elif command.startswith("define sweets ") and define(command):
         print_message("Done")
     elif command.startswith("customer buy "):
-        buy(command)
-        print_message("Done")
+        if buy(command):
+            print_message("Done")
+        else:
+            print_message("Insufficient material")
     elif command == "exit":
         return False
     else:

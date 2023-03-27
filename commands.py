@@ -30,3 +30,5 @@ def buy(command):
     if check_raw_materials(sweets_name, quantity):
         update_cash_desk(sweets_name, quantity)
         allocate_raw_materials(sweets_name, quantity)
+        return True
+    return False
