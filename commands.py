@@ -1,5 +1,5 @@
-from confectionary.stockroom import add_material
-from confectionary.store import define_sweets
+from confectionary.stockroom import add_material, check_raw_materials, allocate_raw_materials
+from confectionary.store import define_sweets, update_cash_desk
 from confectionary.workshop import define_sweets_spec
 
 
@@ -23,3 +23,14 @@ def define(command):
         return False
     return req1 and req2
 
+
+def buy(command):
+    *action, sweets_name, quantity = command.split()
+    if action != ["customer", "buy"]:
+        raise ValueError
+    quantity = int(quantity)
+    if check_raw_materials(sweets_name, quantity):
+        update_cash_desk(sweets_name, quantity)
+        allocate_raw_materials(sweets_name, quantity)
+        return True
+    return False

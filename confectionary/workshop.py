@@ -1,4 +1,5 @@
 import re
+
 SWEETS_SPEC = dict()
 
 
@@ -25,3 +26,13 @@ def check_values(material, quantity):
     elif not re.match('^[a-zA-Z]{3,}$', material):
         return False
     return True
+
+
+def required_raw_materials(sweets_name, quantity):
+    requirements = dict()
+    if sweets_name in SWEETS_SPEC and quantity > 0:
+        for k, v in SWEETS_SPEC[sweets_name].items():
+            requirements[k] = v * quantity
+    else:
+        raise ValueError
+    return requirements

@@ -1,5 +1,5 @@
 from inout import get_command, print_message
-from commands import add, define
+from commands import add, define, buy
 
 
 def runner():
@@ -8,6 +8,14 @@ def runner():
         print_message("Done")
     elif command.startswith("define sweets ") and define(command):
         print_message("Done")
+    elif command.startswith("customer buy "):
+        try:
+            if buy(command):
+                print_message("Done")
+            else:
+                print_message("Insufficient material")
+        except ValueError:
+            print_message("invalid command")
     elif command == "exit":
         return False
     else:
