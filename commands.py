@@ -1,6 +1,6 @@
-from confectionary.stockroom import add_material, RAW_MATERIALS
+from confectionary.stockroom import add_material, check_raw_materials
 from confectionary.store import define_sweets, update_cash_desk
-from confectionary.workshop import define_sweets_spec, SWEETS_SPEC
+from confectionary.workshop import define_sweets_spec
 
 
 def add(command):
@@ -27,19 +27,5 @@ def define(command):
 def buy(command):
     *action, sweets_name, quantity = command.split()
     quantity = int(quantity)
-    requirements = dict()
-    for k, v in SWEETS_SPEC[sweets_name].items():
-        requirements[k] = v * quantity
-    is_exist = True
-    for k, v in requirements.items():
-        if k in requirements and k in RAW_MATERIALS:
-            if requirements[k] <= RAW_MATERIALS[k]:
-                is_exist = True
-            else:
-                is_exist = False
-                break
-        else:
-            is_exist = False
-            break
-    if is_exist:
+    if check_raw_materials(sweets_name, quantity):
         update_cash_desk(sweets_name, quantity)
