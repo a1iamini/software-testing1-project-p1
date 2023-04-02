@@ -89,3 +89,21 @@ def test_if_the_wrong_buy_command_is_entered_then_the_invalid_command_message_mu
         app.runner()
         out, err = capsys.readouterr()
         assert out[-21:] == label + "invalid command\n"
+
+
+@pytest.fixture
+def pre():
+    commands = ['add piyaz 3',
+                'define sweets piyazi 10000: piyaz 3, shekar 1']
+    for c in commands:
+        with patch('app.get_command', MagicMock(return_value=c)):
+            app.runner()
+
+
+@patch('app.get_command', MagicMock(return_value='customer buy piyazi 1'))
+def test_if_the_raw_material_of_a_sweet_have_not_been_added_to_the_stockroom_then_display_insufficient_material(capsys,
+                                                                                                                pre):
+    label = "cms: "
+    app.runner()
+    out, err = capsys.readouterr()
+    assert out[-27:] == label + "Insufficient material\n"
