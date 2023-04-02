@@ -28,13 +28,13 @@ def check_raw_materials(sweets_name, quantity):
     requirements = required_raw_materials(sweets_name, quantity)
     is_exist = True
     for k, v in requirements.items():
-        if k in requirements and k in RAW_MATERIALS:
+        try:
             if requirements[k] <= RAW_MATERIALS[k]:
                 is_exist = True
             else:
                 is_exist = False
                 break
-        else:
+        except KeyError:
             is_exist = False
             break
     return is_exist
